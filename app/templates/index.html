@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% extends base %}
+    {% block preamble %}
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+    {% endblock %}
+</head>
+<body>
+    {% block contents %}
+    <div class="container">
+
+        <div class="section">
+            <div class="container">
+                <div class="columns is-vcentered">
+                        <img src="app/static/img/uni_logo.png"  style="max-height: 90px;" class="p-2">
+                        <img src="app/static/img/curve-logo.png"  style="max-height: 70px;" class="p-2">
+                        <h1 class="title">
+                            UNISWAP v3 vs CURVE.fi Stableswap Slippage comparison
+                        </h1>
+                </div>            
+            </div>
+        </div>
+    
+        <div class="section">
+            <div class="content">
+                <div class="title">Introduction</div>
+                <div class="block">
+                    Uniswap and Curve.fi are household names for degens on the Ethereum Mainnet. They are behemoths in the world of DEXes. Both swallowing most of the swapping activity on the Ethereum Mainnet. While Uniswap boasts itself of some of the largest volumes of Liquidity Locked, Curve.fi is a behemoth in stable pair, i.e assets that trade around 1:1 ratio. Uniswap v2's product curve AMM did manage to capture most of the swaps on the mainnet, yet the user-experience with respect to price slippage was bad. This was a huge thorn in Uniswap v2's arsenal, one which kept Curve.fi in the DEX game. Curve used a different AMM (more on that later), to reduce price slippage in stable pairs while also charging lesser liquidity fees than Uniswap v2. 
+                    <br>
+                    Uniswap v3, was launched with a different approach to Curve.fi, in order to tackle the slippage problem. But did Uniswap v3 succeed in it and dethrone Curve.fi as the stable-swap king ? 
+                </div>
+                <div class="title">What is uniswap and curve ?</div>
+                <div class="block">
+                    <p class='is-size-6'>
+                        Quoting the <a href="http://docs.uniswap.org/protocol/introduction">Uniswap v3-docs </a> : <br>
+                    </p>
+    
+                    <blockquote>
+                        The Uniswap protocol is a peer-to-peer system designed for exchanging cryptocurrencies (ERC-20 Tokens) on the Ethereum blockchain. The protocol is implemented as a set of persistent, non-upgradable smart contracts; designed to prioritize censorship resistance, security, self-custody, and to function without any trusted intermediaries who may selectively restrict access.
+    
+                        There are currently three versions of the Uniswap protocol. V1 and V2 are open source and licensed under GPL. V3 is open source with slight modifications, which are viewable here. Each version of Uniswap, once deployed, will function in perpetuity, with 100% uptime, provided the continued existence of the Ethereum blockchain.
+                    </blockquote>                     
+                </div>
+                <div class="block">
+                    <p class='is-size-6'>
+                        Quoting the <a href="https://resources.curve.fi/base-features/understanding-curve">Curve.fi docs </a> : <br>
+                        <blockquote>
+                            Curve is an exchange. Its main goal is to let users and other decentralised protocols exchange stablecoins (DAI to USDC for example) through it with low fees and low slippage. Unlike exchanges out there that match a buyer and a seller, the behaviour of Curve is different, it uses liquidity pools like Uniswap. To achieve this, Curve needs liquidity (tokens) which is rewarded by those who provide it.
+                        </blockquote>
+                    </p>
+                </div>
+                <div class="block">
+                    <p class="is-size-6">
+                        Uniswap is a DEX where a liquidity provider provides Liquidity in the form of two token in a ratio that is reasonably comparable to the market valuation, so a user could swap the one token for another. Curve.fi does the same work, however it restricts itself to stable-pairs, i.e pairs that trade around 1. 
+                        <br>
+                        The main difference between these two protocols lie on the pairs they trade, and the methodology behind swapping in their respective pools. So one must understand how the swap-mechanism works in both pools before understanding the slippage.
+                    </p>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="section">
+            <div class="title">Understanding the AMMs</div>
+            Centralized exchanges use Order-Books to provide liquidity. These are extremely robust, and allow the CEX to keep the gaps filled optimally.This however isn't possible with DeFi. The blockchains on top of which these Market Makers are built have slow response times and have underlying gas fees. These make it hard for the users to make swaps, and also make it hard for Makers to move liquidity consistently. Which means, the robust Order-Book model isn't easy nor efficient to reproduce.
+            <br><br>
+            <div class="title is-size-4">Constant Product Invariant</div>
+            In 2018, Uniswap launched with the revolutionary Automated Market Maker (AMMs) concept. Uniswap uses a product curve for its AMM also called <b>CONSTANT PRODUCT INVARIANT</b>. The concept behind the system is pretty simple. There exists a constant <b class="subtitle">K</b>. The product of number tokens in the pool, should always be equal to this constant <b class="subtitle">K</b>. Say <b class="subtitle">x</b> and <b class="subtitle">y</b> are the number of tokens, The exchange price <b class="subtitle">P</b> of the token is the ratio between the two token volumes. Then
+            <div class="columns">
+                <div class="column is-3"></div>
+                <div class="column">
+                    <section class="hero is-small">
+                        <div class="hero-body">
+                            <p class="title">
+                                x y = K <br>
+                                P = x / y 
+                            </p>
+                        </div>
+                    </section>
+                </div>
+                <div class="column is-1"></div>
+            </div>
+            
+            Let us take an <b>DAI</b> - <b>USDC</b> example. Say there is a pool with 100 DAI + 100 USDC .The value <b class="subtitle">K</b> is 
+            <div class="columns">
+                <div class="column is-3"></div>
+                <div class="column">
+                    <section class="hero is-small">
+                        <div class="hero-body">
+                            <p class="title">
+                                K = 100 x 100 = 10000 <br>
+                                P = 100 / 100 = 1
+                            </p>
+                        </div>
+                    </section>
+                </div>
+                <div class="column is-1"></div>
+            </div>
+            
+            When a user wants to swap 10 DAI for USDC , he adds 10 DAI first to the pool. Then the protocol calculates the amount of USDC to be released to keep the <b class="subtitle">K</b> constant.
+            <div class="columns">
+                <div class="column is-3"></div>
+                <div class="column">
+                    <section class="hero is-small">
+                        <div class="hero-body">
+                            <p class="title">
+                                K = 110 x [USDC] = 10000<br>
+                                [USDC] = 10000/110 = 90.90  <br>
+                            </p>
+                        </div>
+                    </section>
+                </div>
+                <div class="column is-1"></div>
+            </div>
+            The excess 9.1 USDC is given to the user. <br>
+            <br>
+            <div class="columns is-vcentered is-justified px-1">
+                <div class="column">
+                    <img src="app/static/img/uniswap_curve.png">
+                </div>
+                <div class="column p-2 ">
+                    The de-merits of this model is clear. The user expects 10 USDC in return, but only gets 9.1 USDC. This 0.9 USDC is the slippage of the swap.This slippage is dependent on the Liquidity in the Pool, and the number of tokens swapped in. <b>Higher</b> the Liquidity, <b>lower</b> the slippage. <b>Higher</b> the number of tokens swapped in, <b>higher</b>  the slippage. <br> Despite the slipping issues, its not a bad model, it has its perks, else it would have been kicked-out long ago. Before discussing its perks, lets see the competing model, the sum curve or the <b>CONSTANT SUM INVARIANT</b>
+                </div>
+            </div>
+            
+            
+            <br><br>
+
+            <div class="title is-size-4">Constant Sum Invariant</div>
+            The easiest way to get rid of impermanent loss it to replace the Constant Product Invariant with the Constant Sum Invariant. Assuming the same <b class="subtitle">x</b> and <b class="subtitle">y</b> are the number of tokens and constant is <b class="subtitle">K</b>, the Constant Sum Invariant is represented as :
+            <div class="columns">
+                <div class="column is-3"></div>
+                <div class="column">
+                    <section class="hero is-small">
+                        <div class="hero-body">
+                            <p class="title">
+                                x + y = K <br>
+                                P = x / y 
+                            </p>
+                        </div>
+                    </section>
+                </div>
+                <div class="column is-1"></div>
+            </div>
+            Let us take the same example <b>DAI</b> - <b>USDC</b>. There is a pool with 100 DAI + 100 USDC .The value <b class="subtitle">K</b> is 
+            <div class="columns">
+                <div class="column is-3"></div>
+                <div class="column">
+                    <section class="hero is-small">
+                        <div class="hero-body">
+                            <p class="title">
+                                K = 100 + 100 = 200 <br>
+                                P = 100 / 100 = 1
+                            </p>
+                        </div>
+                    </section>
+                </div>
+                <div class="column is-1"></div>
+            </div>
+            
+            When a user wants to swap 10 DAI for USDC , he adds 10 DAI first to the pool. Then the protocol calculates the amount of USDC to be released to keep the <b class="subtitle">K</b> constant.
+            <div class="columns">
+                <div class="column is-3"></div>
+                <div class="column">
+                    <section class="hero is-small">
+                        <div class="hero-body">
+                            <p class="title">
+                                K = 110 + [USDC] = 200<br>
+                                [USDC] = 200-110 = 90  <br>
+                            </p>
+                        </div>
+                    </section>
+                </div>
+                <div class="column is-1"></div>
+            </div>
+            The excess 10 USDC is sent to user.ZERO SLIPPAGE.  Clearly this is the better model right ?
+            <div class="columns py-2">
+                <div class="column is-2"></div>
+                <div class="column">
+                    <img src="app/static/img/meme1.jpg">
+                </div>
+                <div class="column is-2"></div>
+            </div>
+            <div class="title is-size-4">The Differences</div>
+
+            In <b>real world </b> , <b>1 DAI != 1 USDC</b> . There is always a premium, like 1 DAI = 0.99 $USD, while 1USDC = 1.01 $USD. Which means as the sum remains constant even thought the ratio changes and hence the price, the pool still gives out same number of tokens.
+            Let's take another example to demonstrate this. After the first 10 DAI to 10 USDC swap, lets do another 10 DAI to 10 USDC swap. The pool now has 110 DAI and 90 USDC.
+            <div class="columns">
+                <div class="column is-3"></div>
+                <div class="column">
+                    <section class="hero is-small">
+                        <div class="hero-body">
+                            <p class="title">
+                                K = 120 + [USDC] = 200<br>
+                                [USDC] = 200-90 = 80  <br>
+                            </p>
+                        </div>
+                    </section>
+                </div>
+                <div class="column is-1"></div>
+            </div>
+            Once again the pool gives out 10 USDC for 10 DAI, inspite the pool having different ratios. When there is a price discrepancy like 1 DAI = 0.99 $USD, while 1USDC = 1.01 $USD, effectively everyone would drain a pool for profit, simply by swapping in 1DAI for 1USD, as they will make 0.02 USD for every DAI traded in. As a liquidity pool, this is bad news. The liquidity pool could run out of tokens to swap, and also act as an arbitrage bank alone. This is where the Constant Product Invariant shines. 
+            <br><br>
+            <div class="columns is-vcentered">
+                <div class="column">
+                    <img src="app/static/img/amm_product_price.gif">
+                </div>
+                <div class="column">
+                    The Constant Product AMM is very good at self regulation. One of its key advantages is that as more and more of one token is taken away , it gets more and more expensive to take it away (see slippage is good after all). This is a very effective means of price and ratio calculation. Arbitrageurs consistenly arbitrage rather than mere swap profits, thus keeping the ratio tight and consistent with elsewhere.
+                </div>
+            </div>
+            Let's try draining the DAI-USDC Constant Product Invariant AMM. Say a whale decides to swap out the entire 100 USDC by swapping in 100 DAI.
+            <div class="columns">
+                <div class="column is-3"></div>
+                <div class="column">
+                    <section class="hero is-small">
+                        <div class="hero-body">
+                            <p class="title">
+                                K = 200 x [USDC] = 10000<br>
+                                [USDC] = 10000/200 = 50  <br>
+                            </p>
+                        </div>
+                    </section>
+                </div>
+                <div class="column is-1"></div>
+            </div>
+            The whale, didn't manage to get any more than 50 USDC. If they tries again, this time with 200 DAI
+            <div class="columns">
+                <div class="column is-3"></div>
+                <div class="column">
+                    <section class="hero is-small">
+                        <div class="hero-body">
+                            <p class="title">
+                                K = 400 x [USDC] = 10000<br>
+                                [USDC] = 10000/400 = 25  <br>
+                            </p>
+                        </div>
+                    </section>
+                </div>
+                <div class="column is-1"></div>
+            </div>
+            They only gets 25 DAI out. So the slippage, effectively prevents the draining of the pool by making it financially more expensive.
+            <br>
+            <div class="title is-size-4">Uniswap and Curve</div>
+
+            Uniswap uses the Constant Product Invariant for its AMMs. Clearly the pros out-weigh the cons. The slippage itself is dependent on the the liquidity available and the volume of the swap. Also, in the name of capital efficiency, Uniswap V3 has introduced Liquidity Concentration. For stable pairs, this means that the liquidity could be concentrated around 1. 
+
+            <br>
+            Curve on the other hand, employs a combination of both Constant Product and Constant Sum Invariants. It simply adds the two formulas to get 
+            <div class="columns">
+                <div class="column is-3"></div>
+                <div class="column">
+                    <section class="hero is-small">
+                        <div class="hero-body">
+                            <p class="title">
+                                ( x + y ) + x y = K <br>
+                                ( x + y ) + x y = D + ( D / 2 )<sup>2</sup>
+                            </p>
+                        </div>
+                    </section>
+                </div>
+                <div class="column is-1"></div>
+            </div>
+            Here <b class="subtitle">D</b> is the total number of tokens in the pool. This however is only applicable for stable-pairs as taking <b class="subtitle">x + y </b>inherently sets the ratio as 1:1 or almost equal value.
+            What this achieves is that, within the price range close to 1, it acts as a Constant Sum Invariant and as it moves away from those regions, it starts acting as a Constant Product Invariant. Depending on the volatility of the pair listed, an extra term is added, to boost the Constant Sum Invariant part. 
+            <div class="columns">
+                <div class="column is-3"></div>
+                <div class="column">
+                    <section class="hero is-small">
+                        <div class="hero-body">
+                            <p class="title">
+                                &xi; ( x + y ) + x y = K <br>
+                                &xi; ( x + y ) + x y = &xi;D + ( D / 2 )<sup>2</sup>
+                            </p>
+                        </div>
+                    </section>
+                </div>
+                <div class="column is-1"></div>
+            </div>
+            When this boost is 0, the equation converts to a Constant Product Invariant, while as the boost increases, the AMM acts like a Constant Sum Invariant.
+            <div class="columns is-vcentered">
+                <div class="column is-3">
+                    <section class="hero is-small">
+                        <div class="hero-body">
+                            <p class="title">
+                                &xi; = 0 <br>
+                                &xi; -> infinity
+                            </p>
+                        </div>
+                </div>
+                <div class="column is-4">
+                    <section class="hero is-small">
+                        <div class="hero-body">
+                            <p class="title">
+                                x y = K <br>
+                                &xi; ( x + y ) = &xi;D
+                            </p>
+                        </div>
+                    </section>
+                </div>
+                <div class="column">
+                    <img src="app/static/img/chi.gif" alt="" srcset="">
+                </div>
+            </div>
+                Thereby Curve achieves almost zero slippage Constant Sum Invariant AMM while also keeping the pool-draining resistance of Constant Product Invariant
+                So lets see how Curve and Uniswap v3 stack up in real life. Does Uniswap v3's concentrated liquidity actually beats Curve ? 
+        </div>
+
+        <div class="section">
+            <div class="title">Analysing Curve.fi against Uniswap v3</div>
+            <div class="content">
+                <div class="title is-size-4">Preparing the Data</div>
+                The data for this analysis is taken from <a href="https://app.flipsidecrypto.com/velocity">Flipside Crypto</a>. 
+                <ul>
+                    <li>Flipside Crypto have dedicated SQL tables for Uniswapv3, from which the swap data and Liquidiy locked in the respective Pair Pools can be obtained.</li>
+                    <li>Flipside Crypto doesn't have a dedicated table for Curve.fi, however the Ethereum tables are organized well enough to extract swap data and liquidity information using the pool-address.</li>
+                    <li>For <b>curve.fi</b> we will only consider the <a href="https://curve.fi/3pool"> DAI-USDT-USDC 3pool</a>  </li> 
+                    <li>As we are only considering 3pool from curve.fi, we will only consider swaps in Uniswap that are between DAI-USDT-USDC </li>
+                    <li> As Uniswap v3 is a relatively newer protocol, while Curve is a well established protocol, we will analyze only data for August,2021. This will keep the external market conditions almost similar for both the two protocols. The 2 months after May 5 launch, we shall hope that has given enough time for it to bed it into the ecosystem.</li>
+                </ul> 
+            </div>
+            <div class="title is-size-4">Analysing Liquidity</div>
+            <div class="content">
+                Analysing the Total Value Locked in the protocols is crucial to understand the general sentiment of the LPs towards these providers.
+                <ul>
+                    <li>The Liquidity in curve.fi 3pool, will be obtained by calculating the total token balance in the 3pool contract.</li>
+                    <li>The liquidity in uniswap v3 pools will be taken by filtering and calculating the token balances of each pool containing pairs from USDT-USDC-DAI </li>
+                </ul>
+                Let us check the Liquidity for the month of August, 2021 for each token and also for all tokens together.
+            </div>
+
+            <div class="section">
+                <div class="columns">
+                    <div class="column">
+                        <div class="card">
+                            <div class="card-header">
+                                <div class="card-header-title">
+                                    curve.fi DAI-USDT-USDC Liquidity
+                                </div>
+                            </div>
+                            <div class="card-content">
+                                <div class="container">
+                                    {{embed(roots['curve_token_plot'])}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="column">
+                        <div class="card">
+                            <div class="card-header">
+                                <div class="card-header-title">
+                                    uniswap v3 DAI-USDT-USDC Liquidity
+                                </div>
+                            </div>
+                            <div class="card-content">
+                                <div class="container">
+                                    {{embed(roots['uni_token_plot'])}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-header-title">
+                            Comparing Liquidity
+                        </div>
+                    </div>
+                    <div class="card-content">
+                        <div class="container">
+                            {{embed(roots['liq_comp_plot'])}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content">
+                Clearly curve.fi has Volume. With almost 7x the liquidity of that of uniswap v3, the 3pool's liquidity itself could drive the slippage down alot.
+            </div>
+
+            <div class="title is-size-4">Analysing Slippage</div>
+            <div class="section">
+                <div class="columns">
+                    <div class="column">
+                        <div class="card">
+                            <div class="card-header">
+                                <div class="card-header-title">
+                                    CURVE slippage
+                                </div>
+                            </div>
+                            <div class="card-content">
+                                <div class="container">
+                                    {{embed(roots['curve_slip_plot'])}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="column">
+                        <div class="card">
+                            <div class="card-header">
+                                <div class="card-header-title">
+                                    Uniswap slippage
+                                </div>
+                            </div>
+                            <div class="card-content">
+                                <div class="container">
+                                    {{embed(roots['uni_slip_plot'])}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-header-title">
+                            Comparing Slippage
+                        </div>
+                    </div>
+                    <div class="card-content">
+                        <div class="container">
+                            {{embed(roots['comp_slip_plot'])}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            
+            
+            
+            
+            
+            
+            
+        </div>
+    </div>
+    {% endblock %}    
+</body>
+</html>
