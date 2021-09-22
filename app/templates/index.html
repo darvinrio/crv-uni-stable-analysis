@@ -287,17 +287,26 @@
                 <div class="column is-3">
                     <section class="hero is-small">
                         <div class="hero-body">
+                            when
                             <p class="title">
                                 &xi; = 0 <br>
-                                &xi; -> infinity
+                            </p>
+                            then
+                            <p class="title">
+                                x y = K
                             </p>
                         </div>
                 </div>
                 <div class="column is-4">
                     <section class="hero is-small">
                         <div class="hero-body">
+                            when
                             <p class="title">
-                                x y = K <br>
+                                &xi; -> infinity
+                                <br>
+                            </p>
+                            then
+                            <p class="title">
                                 &xi; ( x + y ) = &xi;D
                             </p>
                         </div>
@@ -502,7 +511,7 @@
                     </div>
                 </div>
             </div>
-
+            In the graphs, the black lines bound 50 percent of the swaps, from left first line is 25 percentile, second line is 50 percentile and 3rd line is 75 percentile. So the region between 25 and 75 contains 50 percent of all swaps.
             With a sub 0.01 percent mean, Curve.fi is the clear winner. Curve.fi has completed 75 percent of its swaps with slippage less than that of the mean slippage of Uniswap v3.
             However whats the reason behind it ?.
         </div>
@@ -627,14 +636,198 @@
             </div>
 
             <div class="content">
-                Clearly curve.fi has Volume. With almost 7x the liquidity of that of uniswap v3, the 3pool's liquidity itself could drive the slippage down alot. While Uniswap v2 lost to Curve.fi due to math, Uniswap v3 with its upgraded <a href="https://uniswap.org/whitepaper-v3.pdf"> Math </a> ( I tried, but it was way too complicated to simplify ), is definitely expected to perform better than Uniswap v2. However, the insane volume difference is a key factor. 
+                Clearly curve.fi has Volume. With almost 7x the liquidity of that of uniswap v3, the 3pool's liquidity itself could drive the slippage down alot. While Uniswap v2 lost to Curve.fi due to math, Uniswap v3 with its upgraded <a href="https://uniswap.org/whitepaper-v3.pdf"> Math </a> ( I tried, but it was way too complicated to simplify ), is definitely expected to perform better than Uniswap v2. However, the insane volume difference is a key factor. <br>
+                One must also notice, how Transaction volume and Number Transactions vary between the protocol. While Uniswap has more transactions, almost 8x times that of Curve, Curve has 50% more swap volume in USD. This is key as, this indicates the routing of trades based on volume. Larger trades are routed to Curve, while most of the trades that are smaller are sent to Uniswap.
                 <br>
-                Uniswap v3's only incentive for providing liquidity is the swap fees itself. However Curve.fi on the other hand has an extra 2+ percent APY in the form of CRV tokens atop the fees. This APY could reach higher APRs via boosting if we consider other solutions like <a href="https://www.convexfinance.com/">Convex finance </a>. While the transaction volume in Uniswap v3 is much greater, the guaranteed APR is a very attractive option for investors. Moreover, Curve also supplies underlying tokens to yield opportunities like Compound and AAVE.
+                Uniswap v3's only incentive for providing liquidity is the swap fees itself. However Curve.fi on the other hand has an extra 2+ percent APY in the form of CRV tokens atop the fees. This APY could reach higher APRs via boosting if we consider other solutions like <a href="https://www.convexfinance.com/">Convex finance </a>. While the transaction volume in Uniswap v3 is much greater, the guaranteed APR is a very attractive option for investors. Moreover, Curve also supplies underlying tokens to yield opportunities like Compound and AAVE. With similar Curve charging 0.04% while Uniswap providing 0.05% fees, the fee revenues are effectively same, but Uniswap gets the same volume of fees from literally 1/7 th of Curve's Liquidity. Talk about Capital Efficiency.
             </div>
         </div>
         <div class="section">
             <div class="title">Closing Thoughts</div>
-            While yes Curve.fi is still the king of stable coin-swaps, Uniswap v3 is definitely an upgrade. With consistenly attaining sub 0.1 slippage while having just 1/7 th of the Curve's liquidity, the debate is clearly open. Cause with Curve's ginormous liquidity, theoretically Uniswap v3 could topple Curve as king of stableswaps. In future, we could delve deeper in the Uniswap v3 stable pools with more concentrated liquidity. As the liquidity isnt evenly spread among all the pools. Though this was done to simplify the comparison between the 3Pool and the Uniswap pools, my hypothesis is that, the spread could narrow much more when specific liquidity pairs are chosen. This would give us much more clarity into these swaps. 
+            While yes Curve.fi is still the king of stable coin-swaps, Uniswap v3 is definitely an upgrade. With consistenly attaining sub 0.1 slippage while having just 1/7 th of the Curve's liquidity, the debate is clearly open. Cause with Curve's ginormous liquidity, theoretically Uniswap v3 could topple Curve as king of stableswaps. The fact that Uniswap v3's concentrated liquidity manages to generate almost similar fees for almost 1/7 the volume of Curve is a true testament of capital efficiency. <br>
+             In future, we should delve deeper in the Uniswap v3 stable pools with more concentrated liquidity, as the liquidity isnt evenly spread among all the pools. Though this was done to simplify the comparison between the 3Pool and the Uniswap pools, my hypothesis is that, the spread obtained in the histogram could narrow much more when specific liquidity pairs are chosen. This would give us much more clarity into these protocols. <br>
+             Against a battle tested protocol like Curve, Uniswap's victory will depend on the movement of Liquidity into the protocol. As the protocol starts getting bedded solidly into the system over the next few months, we could possibly see Curve being toppled. <br>
+             However, Curve could definitely come-up with something innovative. While Uniswapv3's Business License keeps concentrated liquidity off Curve for a while, A hybrid Constant Product Constant Sum Invariant with concentrated liquidity, will be a massive step in the right direction. <br>
+             Maybe one of these two collosals might lose, or might even join together for that adventure, but the future will remember both protocols are pioneers of DeFi 
+        </div>
+        <div class="section">
+            <div class="title">References</div>
+            <div class="content">
+                <ol>
+                    <li>Uniswap v3 Core Docs - <a href="https://uniswap.org/whitepaper-v3.pdf">https://uniswap.org/whitepaper-v3.pdf</a></li>
+                    <li>Stableswap paper - <a href="https://curve.fi/files/stableswap-paper.pdf">https://curve.fi/files/stableswap-paper.pdf</a> </li>
+                    <li>Smart Contract Programmer - Curve-Math (youtube video) - <a href="https://youtu.be/GuD3jkPgPgU">https://youtu.be/GuD3jkPgPgU</a></li>
+                    <li>Understanding Automated Market-Makers, Part 1: Price Impact - <a href="https://research.paradigm.xyz/amm-price-impact"> https://research.paradigm.xyz/amm-price-impact</a></li>
+                    <li>Zero Slippage AMM ? - <a href="https://alvarofeito.com/articles/curve/#Zero-Slippage-AMM?">https://alvarofeito.com/articles/curve/#Zero-Slippage-AMM?</a></li>
+                    <li>The Defiant - Uniswap v3 (youtube video) - <a href="https://youtu.be/5KonJGrGTiU">https://youtu.be/5KonJGrGTiU</a></li>
+                    <li>Whiteboard Crypto - What is an AMM (youtube video) - <a href="https://www.youtube.com/watch?v=1PbZMudPP5E">https://www.youtube.com/watch?v=1PbZMudPP5E</a></li>
+                </ol>
+            </div>
+
+        </div>
+
+        <div class="section">
+            <br>
+            <div class="title">Appendix</div>
+            <div class="subtitle">
+                Python Notebook
+            </div>
+            <ul>
+                <li><a href="https://colab.research.google.com/drive/1nYyzg2UzR5Kxl-o3l4xSNjnJINZWIO5V?usp=sharing">Google Colab Notebook</a></li>
+            </ul>
+            <br>
+            <div class="subtitle">Flipside Crypto SQL codes</div>
+            Uniswap v3 DAI-USDT-USDC swap data : <br>
+            <pre>
+
+with swaps as(
+select 
+    block_timestamp,
+    tx_id,
+    recipient as user,
+    case when amount0_adjusted > 0 then abs(amount0_adjusted) else abs(amount1_adjusted) end as swap_in_amt,
+    case when amount0_adjusted > 0 then abs(amount1_adjusted) else abs(amount0_adjusted) end as swap_out_amt,
+    case when amount0_adjusted > 0 then token0_address else token1_address end as token_in,
+    case when amount0_adjusted > 0 then token1_address else token0_address end as token_out,
+    case when amount0_adjusted > 0 then token0_symbol else token1_symbol end as token_in_symbol,
+    case when amount0_adjusted > 0 then token1_symbol else token0_symbol end as token_out_symbol,
+
+    case when amount0_adjusted > 0 --amount 0 is swapped in
+        then (amount0_usd-abs(amount1_usd))*100/(amount0_usd) 
+        else (amount1_usd-abs(amount0_usd))*100/(amount1_usd) end as slippage
+    
+    
+from uniswapv3.swaps
+where token0_address in ('0x6b175474e89094c44da98b954eedeac495271d0f','0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48','0xdac17f958d2ee523a2206206994597c13d831ec7')
+    and token1_address in ('0x6b175474e89094c44da98b954eedeac495271d0f','0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48','0xdac17f958d2ee523a2206206994597c13d831ec7')
+    and block_timestamp >= date_from_parts(2021,08,01) 
+    and block_timestamp <= date_from_parts(2021,08,31)
+)
+
+select * from swaps
+            </pre>
+            <br>
+            Curve 3pool swap data: <br>
+            <pre>
+
+with swaps as (
+    select --* 
+    block_timestamp,
+    tx_id,
+    event_inputs:buyer::string as user,  
+        case event_inputs:sold_id 
+            when 0 then event_inputs:tokens_sold/pow(10,18) 
+            else event_inputs:tokens_sold/pow(10,6) end as swap_in_amt,
+        case event_inputs:bought_id 
+            when 0 then event_inputs:tokens_bought/pow(10,18) 
+            else event_inputs:tokens_bought/pow(10,6) end as swap_out_amt,
+    case event_inputs:bought_id 
+            when 0 then '0x6b175474e89094c44da98b954eedeac495271d0f' 
+            when 1 then '0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48' 
+            else '0xdac17f958d2ee523a2206206994597c13d831ec7' end as token_out,
+    case event_inputs:sold_id 
+            when 0 then '0x6b175474e89094c44da98b954eedeac495271d0f' 
+            when 1 then '0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48' 
+            else '0xdac17f958d2ee523a2206206994597c13d831ec7' end as token_in,
+        case event_inputs:bought_id 
+            when 0 then 'DAI' 
+            when 1 then 'USDC' 
+            else 'USDT' end as token_out_symbol,
+        case event_inputs:sold_id 
+            when 0 then 'DAI' 
+            when 1 then 'USDC' 
+            else 'USDT' end as token_in_symbol
+    from ethereum.events_emitted
+    where 
+    tx_succeeded = TRUE 
+    and contract_address = lower('0xbEbc44782C7dB0a1A60Cb6fe97d0b483032FF1C7')
+    and event_name = 'TokenExchange'
+        -- and block_timestamp >= date_from_parts(2021,05,05)
+        and block_timestamp >= date_from_parts(2021,08,01) 
+        and block_timestamp <= date_from_parts(2021,08,31)
+),
+prices as(
+    select 
+    hour as hourstamp,token_address,symbol,price
+    from ethereum.token_prices_hourly
+    where token_address in ('0x6b175474e89094c44da98b954eedeac495271d0f','0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48','0xdac17f958d2ee523a2206206994597c13d831ec7')
+    and hour >= date_from_parts(2021,05,05)
+),
+in_prices as(
+    select 
+        block_timestamp,
+        tx_id,
+        user,
+        swap_in_amt,
+        swap_out_amt,
+        token_in,
+        token_out,
+        token_in_symbol,
+        token_out_symbol,
+        swap_in_amt * price as token_in_usd
+    from swaps join prices on date_trunc('hour',block_timestamp) = hourstamp and token_in = token_address
+),
+out_prices as(
+    select 
+        block_timestamp,
+        tx_id,
+        user,
+        swap_in_amt,
+        swap_out_amt,
+        token_in,
+        token_out,
+        token_in_symbol,
+        token_out_symbol,
+        token_in_usd,
+        swap_out_amt * price as token_out_usd
+    from in_prices join prices on date_trunc('hour',block_timestamp) = hourstamp and token_out = token_address
+)
+
+select * ,
+    (token_in_usd-token_out_usd)*100/(token_in_usd+token_out_usd) as slippage
+from out_prices
+order by block_timestamp desc
+            </pre>
+            <br>
+            Uniswap v3 DAI-USDT-USDC liquidity: <br>
+            <pre>
+
+with univ3 as (
+select 
+  balance_date, 
+  balance, 
+  amount_usd, 
+  pool_name, 
+  symbol, 
+  user_address
+from ethereum.erc20_balances bal 
+join ethereum.dex_liquidity_pools dex on bal.user_address = dex.pool_address
+where amount_usd > 0 and platform = 'uniswap-v3'
+-- and balance_date = (select max(balance_date) from ethereum.erc20_balances)
+  	and balance_date >= date_from_parts(2021,08,01) 
+  	and balance_date <= date_from_parts(2021,08,31)
+-- group by balance_date,pool_name,symbol
+-- order by tvl desc
+)
+
+select * from univ3
+where 
+  	((pool_name like '%USDC%' and pool_name like '%USDT%') or 
+	(pool_name like '%USDC%' and pool_name like '%DAI%') or 
+	(pool_name like '%USDT%' and pool_name like '%DAI%')) 
+	and user_address not in ('0xd3822e0cfc8c785d6e185532a4961aecc1ecdb5e','0xdf2aabc4fd53419575eed4f135d0025bd1f1adc1')
+            </pre>
+            <br>
+            3Pool Liquidity: <br>
+            <pre>
+with curve_liq as(
+  select balance_date,symbol,balance
+  from ethereum.erc20_balances
+  where user_address = lower('0xbEbc44782C7dB0a1A60Cb6fe97d0b483032FF1C7')
+  	and balance_date >= date_from_parts(2021,08,01) 
+  	and balance_date <= date_from_parts(2021,08,31)
+)
+            </pre>
         </div>
     </div>
     {% endblock %}    
