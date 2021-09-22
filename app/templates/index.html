@@ -324,66 +324,34 @@
                     <li> As Uniswap v3 is a relatively newer protocol, while Curve is a well established protocol, we will analyze only data for August,2021. This will keep the external market conditions almost similar for both the two protocols. The 2 months after May 5 launch, we shall hope that has given enough time for it to bed it into the ecosystem.</li>
                 </ul> 
             </div>
-            <div class="title is-size-4">Analysing Liquidity</div>
-            <div class="content">
-                Analysing the Total Value Locked in the protocols is crucial to understand the general sentiment of the LPs towards these providers.
-                <ul>
-                    <li>The Liquidity in curve.fi 3pool, will be obtained by calculating the total token balance in the 3pool contract.</li>
-                    <li>The liquidity in uniswap v3 pools will be taken by filtering and calculating the token balances of each pool containing pairs from USDT-USDC-DAI </li>
-                </ul>
-                Let us check the Liquidity for the month of August, 2021 for each token and also for all tokens together.
-            </div>
-
-            <div class="section">
-                <div class="columns">
-                    <div class="column">
-                        <div class="card">
-                            <div class="card-header">
-                                <div class="card-header-title">
-                                    curve.fi DAI-USDT-USDC Liquidity
-                                </div>
-                            </div>
-                            <div class="card-content">
-                                <div class="container">
-                                    {{embed(roots['curve_token_plot'])}}
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="column">
-                        <div class="card">
-                            <div class="card-header">
-                                <div class="card-header-title">
-                                    uniswap v3 DAI-USDT-USDC Liquidity
-                                </div>
-                            </div>
-                            <div class="card-content">
-                                <div class="container">
-                                    {{embed(roots['uni_token_plot'])}}
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="card">
-                    <div class="card-header">
-                        <div class="card-header-title">
-                            Comparing Liquidity
-                        </div>
-                    </div>
-                    <div class="card-content">
-                        <div class="container">
-                            {{embed(roots['liq_comp_plot'])}}
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="content">
-                Clearly curve.fi has Volume. With almost 7x the liquidity of that of uniswap v3, the 3pool's liquidity itself could drive the slippage down alot.
-            </div>
-
+            
             <div class="title is-size-4">Analysing Slippage</div>
+            <div class="content">
+                To analyze slippage, 
+                <ul>
+                    <li>
+                        We calculate the slippage from each swap by comparing their USD valuation. Simply subtracting the USD value out from the USD value in and finding its percentage should do the trick.
+                        <div class="columns">
+                            <div class="column is-3"></div>
+                            <div class="column">
+                                <section class="hero is-small">
+                                    <div class="hero-body">
+                                        <p class="title">
+                                            ( USD <sub>in</sub> - USD <sub>out</sub> ) x 100 / USD <sub>in</sub> <br>
+                                        </p>
+                                    </div>
+                                </section>
+                            </div>
+                            <div class="column is-1"></div>
+                        </div>
+                    </li>
+                    <li> We separate the transactions based on their respective slippage into boxes of 0.002% each.</li>
+                    <li>We also limit ourselves within the range of -0.2% to 0.2%, as these are stableswaps and that should give us 400 bins.</li>
+                    <li>We will also try to check the key statistics of the slippage distribution on the whole to get some quantitative idea.</li>
+                </ul>
+                
+            </div>
+            Plotting the histogram we get :
             <div class="section">
                 <div class="columns">
                     <div class="column">
@@ -428,16 +396,245 @@
                     </div>
                 </div>
             </div>
+            <div class="content">
+                Things to remember about slippage histogram :
+                <ul>
+                    <li>In an ideal swap, we want the slippage to be zero, hence we need the histogram to peak as close to zero as possible. </li>
+                    <li>If there is slippage in a trade, we want the slippage optimal. This implies, we want the histogram to be as narrow as possible. If the spread is more, it means there is statistically significant number of swaps with higher slippage.</li>
+                    <li>An ideal slippage histogram thus will have zero spread and centered on zero, which is basically a straight line centered on zero.</li>
+                </ul>
+                <br>
+                From the plots, Curve.fi's superiority is clear. Negative slippage implies that the user effectively profitted from making the trade without even arbitraging. Curve.fi has a good chunk of transactions that profit the user. Uniswap v3 on the other hand has a much spread out ditribution of slippage. 
+
+            </div>
+            Checking a few key statistics of the distribution:
+            <div class="section">
+                <div class="columns">
+                    <div class="column">
+                        <div class="card">
+                            <div class="card-header">
+                                <div class="card-header-title">
+                                    CURVE slippage
+                                </div>
+                            </div>
+                            <div class="card-content">
+                                <div class="container">
+                                    {{embed(roots['curve_slip_stat_plot'])}}
+                                </div>
+                                <div class="columns">
+                                    <div class="column">
+                                        <div class="card">
+                                            <div class="card-content">
+                                                <div class="cont">
+                                                    <h1 class="subtitle is-6">
+                                                        mean
+                                                    </h1>
+                                                    <h1 class="title is-3">
+                                                        0.008887 %
+                                                    </h1>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="column">
+                                        <div class="card">
+                                            <div class="card-content">
+                                                <div class="cont">
+                                                    <h1 class="subtitle is-6">
+                                                        75 percent swaps under
+                                                    </h1>
+                                                    <h1 class="title is-3">
+                                                        0.026131 %
+                                                    </h1>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="column">
+                        <div class="card">
+                            <div class="card-header">
+                                <div class="card-header-title">
+                                    Uniswap slippage
+                                </div>
+                            </div>
+                            <div class="card-content">
+                                <div class="container">
+                                    {{embed(roots['uni_slip_stat_plot'])}}
+                                </div>
+                                <div class="columns">
+                                    <div class="column">
+                                        <div class="card">
+                                            <div class="card-content">
+                                                <div class="cont">
+                                                    <h1 class="subtitle is-6">
+                                                        mean
+                                                    </h1>
+                                                    <h1 class="title is-3">
+                                                        0.046150 %
+                                                    </h1>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="column">
+                                        <div class="card">
+                                            <div class="card-content">
+                                                <div class="cont">
+                                                    <h1 class="subtitle is-6">
+                                                        75 percent swaps under
+                                                    </h1>
+                                                    <h1 class="title is-3">
+                                                        0.079078 %
+                                                    </h1>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            With a sub 0.01 percent mean, Curve.fi is the clear winner. Curve.fi has completed 75 percent of its swaps with slippage less than that of the mean slippage of Uniswap v3.
+            However whats the reason behind it ?.
         </div>
 
         <div class="section">
-            
-            
-            
-            
-            
-            
-            
+            <div class="title is-size-4">The Liquidity</div>
+            <div class="content">
+                Analysing the Total Value Locked in the protocols is crucial to understand the general sentiment of the LPs towards these protocol, while explaining the slippage efficiency of curve.
+                <ul>
+                    <li>The Liquidity in curve.fi 3pool, will be obtained by calculating the total token balance in the 3pool contract.</li>
+                    <li>The liquidity in uniswap v3 pools will be taken by filtering and calculating the token balances of each pool containing pairs from USDT-USDC-DAI </li>
+                </ul>
+                Let us check the Liquidity for the month of August, 2021 for each token and also for all tokens together.
+            </div>
+
+            <div class="section">
+                <div class="columns">
+                    <div class="column">
+                        <div class="card">
+                            <div class="card-header">
+                                <div class="card-header-title">
+                                    curve.fi DAI-USDT-USDC Liquidity
+                                </div>
+                            </div>
+                            <div class="card-content">
+                                <div class="container">
+                                    {{embed(roots['curve_token_plot'])}}
+                                </div>
+                                <div class="columns">
+                                    <div class="column">
+                                        <div class="card">
+                                            <div class="card-content">
+                                                <div class="cont">
+                                                    <h1 class="subtitle is-6">
+                                                        Number of Transactions
+                                                    </h1>
+                                                    <h1 class="title is-4">
+                                                        6181
+                                                    </h1>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="column">
+                                        <div class="card">
+                                            <div class="card-content">
+                                                <div class="cont">
+                                                    <h1 class="subtitle is-6">
+                                                        Transaction volume USD
+                                                    </h1>
+                                                    <h1 class="title is-4">
+                                                        $ 2,428,185,345
+                                                    </h1>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                
+                            </div>
+                        </div>
+                    </div>
+                    <div class="column">
+                        <div class="card">
+                            <div class="card-header">
+                                <div class="card-header-title">
+                                    uniswap v3 DAI-USDT-USDC Liquidity
+                                </div>
+                            </div>
+                            <div class="card-content">
+                                <div class="container">
+                                    {{embed(roots['uni_token_plot'])}}
+                                </div>
+                                <div class="columns">
+                                    <div class="column">
+                                        <div class="card">
+                                            <div class="card-content">
+                                                <div class="cont">
+                                                    <h1 class="subtitle is-6">
+                                                        Number of Transactions
+                                                    </h1>
+                                                    <h1 class="title is-4">
+                                                        46627
+                                                    </h1>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="column">
+                                        <div class="card">
+                                            <div class="card-content">
+                                                <div class="cont">
+                                                    <h1 class="subtitle is-6">
+                                                        Transaction Volume USD
+                                                    </h1>
+                                                    <h1 class="title is-4">
+                                                        $ 1,963,520,517
+                                                    </h1>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-header-title">
+                            Comparing Liquidity
+                        </div>
+                    </div>
+                    <div class="card-content">
+                        <div class="container">
+                            {{embed(roots['liq_comp_plot'])}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content">
+                Clearly curve.fi has Volume. With almost 7x the liquidity of that of uniswap v3, the 3pool's liquidity itself could drive the slippage down alot. While Uniswap v2 lost to Curve.fi due to math, Uniswap v3 with its upgraded <a href="https://uniswap.org/whitepaper-v3.pdf"> Math </a> ( I tried, but it was way too complicated to simplify ), is definitely expected to perform better than Uniswap v2. However, the insane volume difference is a key factor. 
+                <br>
+                Uniswap v3's only incentive for providing liquidity is the swap fees itself. However Curve.fi on the other hand has an extra 2+ percent APY in the form of CRV tokens atop the fees. This APY could reach higher APRs via boosting if we consider other solutions like <a href="https://www.convexfinance.com/">Convex finance </a>. While the transaction volume in Uniswap v3 is much greater, the guaranteed APR is a very attractive option for investors. Moreover, Curve also supplies underlying tokens to yield opportunities like Compound and AAVE.
+            </div>
+        </div>
+        <div class="section">
+            <div class="title">Closing Thoughts</div>
+            While yes Curve.fi is still the king of stable coin-swaps, Uniswap v3 is definitely an upgrade. With consistenly attaining sub 0.1 slippage while having just 1/7 th of the Curve's liquidity, the debate is clearly open. Cause with Curve's ginormous liquidity, theoretically Uniswap v3 could topple Curve as king of stableswaps. In future, we could delve deeper in the Uniswap v3 stable pools with more concentrated liquidity. As the liquidity isnt evenly spread among all the pools. Though this was done to simplify the comparison between the 3Pool and the Uniswap pools, my hypothesis is that, the spread could narrow much more when specific liquidity pairs are chosen. This would give us much more clarity into these swaps. 
         </div>
     </div>
     {% endblock %}    

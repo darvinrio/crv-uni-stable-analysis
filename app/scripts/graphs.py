@@ -208,5 +208,56 @@ p.x_range = Range1d(-0.2,0.2)
 p.legend.click_policy="hide"
 comp_slip_plot=p
 
+p = figure(plot_height=300,x_axis_label = 'Slippage', 
+           y_axis_label = 'Number of Swaps',sizing_mode="scale_width",name='uni_slip_stat_plot')
+
+# Add a quad glyph
+p.quad(source=cds(uni_slip_df),bottom=0, top='txs', 
+       left='left', right='right',fill_color= '#fc077d',line_color='#fc077d',fill_alpha=0.7,
+       hover_fill_color='#fc077d',hover_fill_alpha=1)
+
+for stat in slip_stat_df.columns:
+        if stat in ['count','std','min','max']:
+            continue
+        val = slip_stat_df[stat]['UNISWAP']
+        val_span = Span(location=val,dimension='height', line_color='black',
+                     line_width=2)
+        p.add_layout(val_span)
+
+hover = HoverTool(tooltips = [('Slippage ', '@label_left{:.000%} to @label_right{:.000%}'),
+                          ('Number of Swaps', '@txs')])
+p.add_tools(hover)
+p.yaxis.visible = False
+p.grid.grid_line_color = None
+p.outline_line_color = None
+p.x_range = Range1d(-0.1,0.1)
+uni_slip_stat_plot=p
+
+
+p = figure(plot_height=300,x_axis_label = 'Slippage', 
+           y_axis_label = 'Number of Swaps',sizing_mode="scale_width",name='curve_slip_stat_plot')
+
+# Add a quad glyph
+p.quad(source=cds(curve_slip_df),bottom=0, top='txs', 
+       left='left', right='right',fill_color= '#008000',line_color='#008000',fill_alpha=0.7,
+       hover_fill_color='#008000',hover_fill_alpha=1)
+
+for stat in slip_stat_df.columns:
+        if stat in ['count','std','min','max']:
+            continue
+        val = slip_stat_df[stat]['CURVE']
+        val_span = Span(location=val,dimension='height', line_color='black',
+                     line_width=2)
+        p.add_layout(val_span)
+
+hover = HoverTool(tooltips = [('Slippage ', '@label_left{:.000%} to @label_right{:.000%}'),
+                          ('Number of Swaps', '@txs')])
+p.add_tools(hover)
+p.yaxis.visible = False
+p.grid.grid_line_color = None
+p.outline_line_color = None
+p.x_range = Range1d(-0.1,0.1)
+curve_slip_stat_plot=p
+
 def get_plot():
-    return curve_token_plot,uni_token_plot,liq_comp_plot,curve_slip_plot,uni_slip_plot,comp_slip_plot
+    return curve_token_plot,uni_token_plot,liq_comp_plot,curve_slip_plot,uni_slip_plot,comp_slip_plot,uni_slip_stat_plot,curve_slip_stat_plot
